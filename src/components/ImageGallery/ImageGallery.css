@@ -1,0 +1,9 @@
+.imageList {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 8px;
+  list-style-type: none;
+  align-items: center;
+  justify-content: center;
+}

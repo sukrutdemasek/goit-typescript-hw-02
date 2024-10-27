@@ -1,16 +1,16 @@
 import ImageCard from "../ImageCard/ImageCard";
-
-export default function ImageGallery({ queryResults }) {
+import "./ImageGallery.css";
+export default function ImageGallery({ queryResults, onImageClick }) {
   return (
-    <ul>
-      {queryResults.length !== 0 &&
-        queryResults.map((queryResult) => {
-          return (
-            <li key={queryResult.id}>
-              <ImageCard src={queryResult.src} />
-            </li>
-          );
-        })}
+    <ul className="imageList">
+      {queryResults.map((queryResult) => (
+        <li key={queryResult.id}>
+          <ImageCard
+            image={queryResult}
+            onClick={() => onImageClick(queryResult)}
+          />
+        </li>
+      ))}
     </ul>
   );
 }

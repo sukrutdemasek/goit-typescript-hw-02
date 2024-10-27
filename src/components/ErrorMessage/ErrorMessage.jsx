@@ -1,6 +1,7 @@
+import "./ErrorMessage.css";
 export default function ErrorMessage() {
   return (
-    <div>
+    <div className="errorMessage">
       <p>Error</p>
     </div>
   );

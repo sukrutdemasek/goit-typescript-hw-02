@@ -1,6 +1,6 @@
 import { FidgetSpinner } from "react-loader-spinner";
 export default function Loader() {
-  render(
+  return (
     <div>
       <FidgetSpinner
         visible={true}

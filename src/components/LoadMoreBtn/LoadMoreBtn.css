@@ -1,0 +1,9 @@
+.loadMoreBtn {
+  font-size: 16px;
+  background-color: blue;
+  color: white;
+  padding: 16px;
+  border: none;
+  position: absolute;
+  left: 50%;
+}
