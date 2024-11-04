@@ -1,10 +1,14 @@
-import { useState } from "react";
+import { ChangeEvent, FormEvent, useState } from "react";
 import "./SearchBar.css";
+import React from "react";
+interface SearchBarProps {
+  onSubmit: (query: string) => void;
+}
 
-export default function SearchBar({ onSubmit }) {
-  const [query, setQuery] = useState("");
+const SearchBar: React.FC<SearchBarProps> = ({ onSubmit }) => {
+  const [query, setQuery] = useState<string>("");
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     onSubmit(query);
   };
@@ -18,7 +22,9 @@ export default function SearchBar({ onSubmit }) {
           autoFocus
           placeholder="Search images and photos"
           value={query}
-          onChange={(e) => setQuery(e.target.value)}
+          onChange={(e: ChangeEvent<HTMLInputElement>) =>
+            setQuery(e.target.value)
+          }
           className="inputField"
         />
         <button type="submit" className="searchBtn">
@@ -27,4 +33,5 @@ export default function SearchBar({ onSubmit }) {
       </form>
     </header>
   );
-}
+};
+export default SearchBar;

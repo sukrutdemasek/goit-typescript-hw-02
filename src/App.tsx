@@ -9,15 +9,25 @@ import { Toaster } from "react-hot-toast";
 import axios from "axios";
 import { toast } from "react-hot-toast";
 import Loader from "./components/Loader/Loader";
+import React from "react";
 
-function App() {
-  const [images, setImages] = useState([]);
-  const [modalIsOpen, setModalIsOpen] = useState(false);
-  const [imagePressed, setImagePressed] = useState(null);
-  const [error, setError] = useState(null);
-  const [loading, setLoading] = useState(null);
-  const [page, setPage] = useState(1);
-  const [query, setQuery] = useState("");
+interface Image {
+  id: string;
+  urls: {
+    small: string;
+    regular: string;
+  };
+  alt_description: string;
+}
+
+function App(): JSX.Element {
+  const [images, setImages] = useState<Image[]>([]);
+  const [modalIsOpen, setModalIsOpen] = useState<boolean>(false);
+  const [imagePressed, setImagePressed] = useState<Image | null>(null);
+  const [error, setError] = useState<string | null>(null);
+  const [loading, setLoading] = useState<boolean>(false);
+  const [page, setPage] = useState<number>(1);
+  const [query, setQuery] = useState<string>("");
 
   useEffect(() => {
     if (!query) return;
@@ -38,18 +48,17 @@ function App() {
     fetchImages();
   }, [query, page]);
 
-  const handleSearchSubmit = (results) => {
+  const handleSearchSubmit = (results: string) => {
     if (results.trim() === "") {
       toast.error("Enter a search term");
       return;
     }
     setQuery(results);
-
     setImages([]);
     setPage(1);
   };
 
-  const openModal = (image) => {
+  const openModal = (image: Image) => {
     setImagePressed(image);
     setModalIsOpen(true);
   };
@@ -63,23 +72,16 @@ function App() {
     <div>
       <SearchBar onSubmit={handleSearchSubmit} />
       <Toaster />
-      {error && <ErrorMessage message={error}></ErrorMessage>}
-
-      <ImageGallery queryResults={images} onImageClick={openModal} />
+      {error && <ErrorMessage />}
+      <ImageGallery images={images} onImageClick={openModal} />
       {loading && <Loader />}
       {images.length > 0 && !loading && (
-        <LoadMoreBtn loadMore={() => setPage((page) => page + 1)}></LoadMoreBtn>
+        <LoadMoreBtn loadMore={() => setPage((page) => page + 1)} />
       )}
-      {imagePressed && (
-        <ImageModal
-          modalIsOpen={modalIsOpen}
-          closeModal={closeModal}
-          afterOpenModal={() => {}}
-          imagePressed={imagePressed}
-        />
-      )}
+      {imagePressed && <ImageModal onClose={closeModal} image={imagePressed} />}
     </div>
   );
 }
 
 export default App;
+export type { Image };

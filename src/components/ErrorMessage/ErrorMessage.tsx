@@ -1,5 +1,6 @@
 import "./ErrorMessage.css";
-export default function ErrorMessage() {
+import React from "react";
+export default function ErrorMessage(): JSX.Element {
   return (
     <div className="errorMessage">
       <p>Error</p>
