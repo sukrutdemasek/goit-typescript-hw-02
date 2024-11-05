@@ -35,7 +35,7 @@ function App(): JSX.Element {
       setLoading(true);
       setError(null);
       try {
-        const response = await axios.get(
+        const response = await axios.get<{ results: Image[] }>(
           `https://api.unsplash.com/search/photos?query=${query}&page=${page}&per_page=12&client_id=TVPpFM_G6vR_MlQIY-i6HlxdvA9b3eAuS-Uq9QY4X8A`
         );
         setImages((prevImages) => [...prevImages, ...response.data.results]);
